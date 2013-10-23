@@ -1,0 +1,43 @@
+<!doctype html>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://cpettitt.github.io/project/dagre-d3/v0.0.4/dagre-d3.min.js"></script>
+<script src="http://cpettitt.github.io/project/graphlib-dot/v0.4.9/graphlib-dot.min.js"></script>
+
+<style>
+rect {
+    fill: #fff;
+}
+
+.node rect {
+    stroke-width: 1.5px;
+    stroke: #333;
+    fill: none;
+}
+
+.edge rect {
+    fill: #fff;
+}
+
+.edge path {
+    fill: none;
+    stroke: #333;
+    stroke-width: 1.5px;
+}
+</style>
+
+<svg width=1000 height=1000>
+  <g transform="translate(20,20)"/>
+</svg>
+
+<script>
+function runRender(dot) {
+  var graph = graphlibDot.parse(dot);
+  var renderer = new dagreD3.Renderer();
+  var svg = d3.select('svg');
+  renderer.run(graph, svg.select('g'));
+  var bbox = svg.node().getBBox();
+  svg
+    .attr('width', bbox.width + bbox.x + 20)
+    .attr('height', bbox.height + bbox.y + 20);
+}
+</script>

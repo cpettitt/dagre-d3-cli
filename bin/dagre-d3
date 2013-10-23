@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+var childProcess = require('child_process'),
+    path = require('path'),
+    phantomjs = require('phantomjs'),
+    binPath = phantomjs.path,
+    args = process.argv.slice(2);
+
+args.unshift(path.join(__dirname, '..', 'cli.js'));
+
+childProcess.execFile(binPath, args, function(err, stdout, stderr) {
+    console.log(binPath, args);
+    if (stdout) {
+        console.log(stdout);
+    }
+    if (stderr) {
+        console.error(stderr);
+    }
+});
