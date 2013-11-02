@@ -1,6 +1,6 @@
 <!doctype html>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://cpettitt.github.io/project/dagre-d3/v0.0.4/dagre-d3.min.js"></script>
+<script src="http://cpettitt.github.io/project/dagre-d3/v0.0.7/dagre-d3.min.js"></script>
 <script src="http://cpettitt.github.io/project/graphlib-dot/v0.4.9/graphlib-dot.min.js"></script>
 
 <style>
@@ -25,19 +25,22 @@ rect {
 }
 </style>
 
-<svg width=1000 height=1000>
-  <g transform="translate(20,20)"/>
-</svg>
+<svg></svg>
 
 <script>
 function runRender(dot) {
+  var svg = d3.select('svg');
+  svg
+    .attr('width', 1000)
+    .attr('height', 1000);
+  svg.selectAll('*').remove();
+
   var graph = graphlibDot.parse(dot);
   var renderer = new dagreD3.Renderer();
-  var svg = d3.select('svg');
-  renderer.run(graph, svg.select('g'));
-  var bbox = svg.node().getBBox();
+  var layoutGraph = renderer.run(graph, svg.append('g').attr('transform', 'translate(20, 20)'));
   svg
-    .attr('width', bbox.width + bbox.x + 20)
-    .attr('height', bbox.height + bbox.y + 20);
+    .attr('width', layoutGraph.graph().bbox.width + 40)
+    .attr('height', layoutGraph.graph().bbox.height + 40);
+  return { width: svg.attr('width'), height: svg.attr('height') };
 }
 </script>

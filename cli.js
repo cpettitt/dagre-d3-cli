@@ -6,7 +6,8 @@ var dot = fs.read(dotFile);
 
 var page = require('webpage').create();
 page.open('render.html', function() {
-  page.evaluate(function(dot) { runRender(dot); }, dot);
+  var bbox = page.evaluate(function(dot) { return runRender(dot);}, dot);
+  page.viewportSize = { width: bbox.width, height: bbox.height };
   page.render('output.png');
   phantom.exit();
 });
