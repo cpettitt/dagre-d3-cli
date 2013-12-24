@@ -1,6 +1,6 @@
 <!doctype html>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://cpettitt.github.io/project/dagre-d3/v0.0.7/dagre-d3.min.js"></script>
+<script src="http://cpettitt.github.io/project/dagre-d3/v0.1.1/dagre-d3.min.js"></script>
 <script src="http://cpettitt.github.io/project/graphlib-dot/v0.4.9/graphlib-dot.min.js"></script>
 
 <style>
@@ -14,11 +14,7 @@ rect {
     fill: none;
 }
 
-.edge rect {
-    fill: #fff;
-}
-
-.edge path {
+.edgePath path {
     fill: none;
     stroke: #333;
     stroke-width: 1.5px;
@@ -39,8 +35,8 @@ function runRender(dot) {
   var renderer = new dagreD3.Renderer();
   var layoutGraph = renderer.run(graph, svg.append('g').attr('transform', 'translate(20, 20)'));
   svg
-    .attr('width', layoutGraph.graph().bbox.width + 40)
-    .attr('height', layoutGraph.graph().bbox.height + 40);
+    .attr('width', layoutGraph.graph().width + 40)
+    .attr('height', layoutGraph.graph().height + 40);
   return { width: svg.attr('width'), height: svg.attr('height') };
 }
 </script>
